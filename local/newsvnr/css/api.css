@@ -1,0 +1,83 @@
+
+.api h2{
+  margin-bottom:0;
+  background-color: #076184; 
+  padding: 15px; 
+  color: #fff;
+}
+
+
+.api .block h5{
+  /*margin-left: 27px;*/
+  position: relative;
+
+  padding-bottom: 5px;
+
+  border-bottom: 5px ridge orange;
+
+  display: inline-block;
+
+}
+.api .main > h5{
+  margin-top: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+
+}
+
+.api div.content {
+
+  padding: 1px 16px;
+
+}
+
+.api .form .form-inline{
+  margin-bottom: 20px;
+}
+
+.api .form .form-inline .col-md-3{
+  margin-bottom: 0;
+  width: 300px;
+}
+
+
+.api .form .add-param{
+  margin-top: 20px;
+}
+
+.api .form-group .fa{
+  color: red;
+  position: absolute;
+  right: 22px;
+  top: 50%;
+}
+
+.api .form .add-param .form-group{
+  justify-content: center;
+}
+
+.api .form .add-param h5{
+  text-align: center;
+}
+
+.api .form .form-inline .form-control{
+  width: inherit;
+}
+
+.form-inline label:not(.sr-only):not(.accesshide) + select{
+  margin-left: 0;
+}
+
+.form-inline label{
+  justify-content: left;
+  padding-left: 0;
+}
+
+.error-header-name{
+  border: 1px ridge #e45353;
+}
+
+.error-param{
+   border: 1px ridge #e45353;
+}

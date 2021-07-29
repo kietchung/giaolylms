@@ -2408,7 +2408,6 @@ class core_course_renderer extends plugin_renderer_base {
 
         // Wrap frontpage part in div container.
         $output .= html_writer::start_tag('div', array('id' => $contentsdivid));
-        $output .= $this->heading($header);
 
         $output .= $contents;
 

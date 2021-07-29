@@ -351,7 +351,7 @@ function theme_moove_add_certificatesmenuitem(\flat_navigation $flatnav) {
 function theme_moove_delete_menuitems(\flat_navigation $flatnav) {
 
     $itemstodelete = [
-        'coursehome'
+        'coursehome', 'contentbank', 'calendar'
     ];
 
     foreach ($flatnav as $item) {

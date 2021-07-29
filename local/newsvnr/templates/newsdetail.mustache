@@ -1,0 +1,82 @@
+{{! <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script> }}
+{{#coursedata}}
+<div class="container">
+   <div class="new-detail-container">
+      <div class="new-detail-title">
+         {{title}}
+      </div>
+      <div class="new-detail-time">
+         {{{useravatar}}}
+         <div>
+         <small class="text-date">{{time}}</small>
+         <br>
+         <i>{{#str}}poster, local_newsvnr{{/str}}: </i> <i class="new-detail-user">{{{discussionart}}}</i>
+         </div>
+      </div>
+      <div class="content">
+         {{{content}}}
+      </div>
+      <div class="row">
+         <div class="col-md-6">
+         </div>
+         <div class="col-md-6" style="text-align:right">
+            {{#btneditnews}}{{{btneditnews}}}{{/btneditnews}}
+         </div>
+      </div>
+   </div>
+   <div id="fb-root"></div>
+   <!--   SCRIPT COMMENT FACEBOOK API
+      <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v3.3"></script>
+      <div class="fb-comments" data-href="http://221.132.17.180:8089/local/newsvnr/news.php?id= {{{discussionid}}} " data-width="100%" data-mobile="true" data-numposts="5"></div>
+      -->
+   <div class="new-detail-comment" >
+      {{#user}}
+      <form>
+         <div class="new-detail-comment-body">
+            <label class="new-detail-comment-title">{{#str}}comment, local_newsvnr{{/str}}</label>
+            <textarea class="new-detail-comment-content" name="content" id="content_comment" maxlength="1000" placeholder="{{#str}}yourcomment, local_newsvnr{{/str}}"></textarea>
+            <input type="hidden" id="userid" name="userid" value="{{{id}}}" />
+            <input type="hidden" id="fullname" value="{{{firstname}}} {{{lastname}}}" name="">
+            <div class="new-detail-comment-control">
+               <button type="button" onclick="PostComment()" id="post_comment" name="post_comment" class="btn btn-submit ">{{#str}}sendcomment, local_newsvnr{{/str}}</button>
+            </div>
+         </div>
+      </form>
+      {{/user}}
+   </div>
+   <div class="new-detail-chat position-relative" data="{{{discussionid}}}" id="list_comment">
+      <div class="loading-page"></div>
+   </div>
+<hr>
+{{/coursedata}}
+<div class="btn-new-Related pt-1">
+   <button type="button" class="btn btn-course-fs">{{#str}}relatednews, local_newsvnr{{/str}}</button>
+</div>
+<div class="new-Related-body">
+   <div class="row">
+      <div class="owl-carousel owl-theme" id="new-lastest">
+      {{#courselqdata}} 
+         {{> theme_moove/newscard}}
+      {{/courselqdata}} 
+      </div>
+   </div>
+</div>
+
+<div class="center-parent">
+   <div class="center-container"> 
+      <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+   </div>
+</div>
+</div>
+{{! 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+}}
+<script type="text/javascript">
+   function ShowReplies(id)
+   {      
+       var show = $('#show-reply'+id);       
+       show.fadeOut('fast');
+       $('#hidden-reply'+id).show();
+       $('.list-reply'+id).show();
+   }
+</script>

@@ -2682,5 +2682,19 @@ function xmldb_main_upgrade($oldversion) {
         upgrade_main_savepoint(true, 2021051700.05);
     }
 
+    if ($oldversion < 2021051701.4) {
+        // Define field evaluationmode to be added to analytics_models_log.
+        $table = new xmldb_table('forum_discussions');
+        $field = new xmldb_field('countviews', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, 0);
+            
+        // Conditionally launch add field evaluationmode.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Main savepoint reached.
+        upgrade_main_savepoint(true, 2021051701.04);
+    }
+
     return true;
 }

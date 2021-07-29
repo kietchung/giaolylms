@@ -51,10 +51,21 @@
     {{>theme_moove/inc_start}}
 
     <div id="page" class="container-fluid d-print-block">
-
         {{>theme_moove/slideshow}}
-
-        {{{ output.full_header }}}
+        <header id="page-header-banner" class="row">
+            <div class="col-12 pt-3 pb-3">
+                <div class="card">
+                        <div class="align-items-center">
+                            <div class="mr-auto">
+                                <div class="header-banner-image"></div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </header>
+        {{! <div class="context-header-settings-menu"> }}
+            {{! output.full_header_moove }}
+        {{! </div> }}
 
         {{#alertcontent}}
             <div class="alertbox">
@@ -64,7 +75,7 @@
             </div>
             <div style="clear:both;"></div>
         {{/alertcontent}}
-        
+        {{>theme_moove/news}}
         <div id="page-content" class="row pb-3 d-print-block">
             <div id="region-main-box" class="col-12">
                 {{#hasregionmainsettingsmenu}}
@@ -73,8 +84,11 @@
                 </div>
                 {{/hasregionmainsettingsmenu}}
                 <section id="region-main">
-                    <div class="card">
-                        <div class="card-body">
+                    <div class="container-fluid pb-4 pt-5">
+                        <div class="container animate-box">
+                        <div>
+                            <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4">Tài nguyên</div>
+                        </div>
                             {{#hasregionmainsettingsmenu}}
                                 <div class="region_main_settings_menu_proxy"></div>
                             {{/hasregionmainsettingsmenu}}
@@ -83,9 +97,17 @@
                             {{{ output.course_content_footer }}}
                         </div>
                     </div>
+                    {{! <div class="card">
+                        <div class="card-body">
+                            
+                        </div>
+                    </div> }}
                 </section>
             </div>
         </div>
+        
     </div>
+
+
 
     {{>theme_moove/inc_end}}

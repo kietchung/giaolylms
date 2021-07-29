@@ -1,0 +1,129 @@
+.container-new{
+    border:1px solid;
+    margin:0 auto;
+   padding:30px;
+    
+}
+.container-new-bottom {
+    margin-left: 15%;
+    margin-right: 15%;
+}
+.new-hot-hr {
+    background-color: white;
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+}
+.new-head {
+    
+}
+.new-head .btn-search{
+    margin-left: 15px;
+    padding: 0px;
+}
+.new-head .form-control-size {
+   width:700px;
+}
+.new-head .btn-new{
+    margin-left:-15px;
+}
+
+.new-hot-body{
+    padding-top:30px;
+}
+.new-hot-body img{
+    width:100%;
+    max-width:100%;
+}
+.new-hot-body .new-hot-box{
+    padding:1px;
+}
+.new-hot-body .new-hot-box{
+    padding:1px;
+}
+.new-hot-body .new-hot-box1{
+    padding-left:10px;
+}
+.new-hot-body .new-hot-box >img{
+   width:100%;
+}
+
+.box-2 carousel-caption{
+    padding:0px;
+}
+.new-hot-body .carousel-inner .carousel-caption {
+    background-color:rgba(29, 25, 25, 0.26);
+    width: 95%;
+    padding-left: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0px;
+    right: 265px;
+    text-align: left;
+}
+.new-hot-body .carousel-inner .carousel-caption .new-hot-title{
+    text-align:left;
+
+}
+
+.new-hot-body .carousel-inner .carousel-caption .new-hot-time{
+    text-align:left;
+    padding-right: 8em;
+}
+.new-hot-body .carousel-inner .carousel-caption .new-hot-comment-info{
+   
+    text-align:right;
+}
+
+.new-hot-hr {
+    background-color: white;
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+}
+
+.container-new-bottom {
+    margin-left: 15%;
+    margin-right: 15%;
+    
+}
+
+.btn-new-latest {
+    padding-top: 30px;
+}
+.new-latest-body {
+    padding-top: 30px;
+   
+}
+.new-latest-box {
+    border: 1px solid;
+    border-color: #a3d1f3;
+    border-radius: 10px;
+    
+}
+.new-latest-body .new-latest-image {
+    width: 100%;
+}
+.new-latest-body .new-latest-title {
+    width:95%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    color:#0094ff;
+}
+
+.new-latest-content {
+    padding-top: 5px;
+    width: 95%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 25px;
+    -webkit-line-clamp: 3;
+    height: 80px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+
+.new-latest-comment-info {
+    color: #0094ff;
+    text-align: left;
+    width: 95%;
+}

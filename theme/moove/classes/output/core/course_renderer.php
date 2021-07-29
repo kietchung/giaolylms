@@ -139,7 +139,7 @@ class course_renderer extends \core_course_renderer {
         foreach ($courses as $course) {
             $content .= $this->coursecat_coursebox($chelper, $course);
 
-            if ($coursecount % 4 == 0) {
+            if ($coursecount % 5 == 0) {
                 $content .= html_writer::end_tag('div');
                 $content .= html_writer::start_tag('div', array('class' => 'card-deck mt-2'));
             }
@@ -247,7 +247,6 @@ class course_renderer extends \core_course_renderer {
         $content = extras::get_course_summary_image($course, $courselink);
         $content .= $this->course_contacts($course);
         $content .= $this->course_card_body($chelper, $course, $coursenamelink);
-        $content .= $this->course_card_footer($course);
 
         return $content;
     }

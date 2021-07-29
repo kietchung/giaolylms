@@ -1,0 +1,206 @@
+{{#news}}
+<div class="container-new container bonus">
+
+	<div class="new-head">
+		<div class="row">
+			<div class="col-md-6 col-lg-8">
+				<div class="mb-3">{{#btnaddnews}}{{{btnaddnews}}}{{/btnaddnews}}</div>
+				<div class="btn-new-latest pl-3">
+					<h3 class="title mb-2">{{#str}}hotnews, local_newsvnr{{/str}}</h3>
+				</div>
+			</div>
+			<div class="col-md-12 col-lg-4 mb-1">
+				<form class="form-inline" method="get">
+					<div class="form-control-size">
+						<div class="input-group">
+							<input type="text" class="form-control" name="q" placeholder="{{#str}}search, core{{/str}}">
+							<button type="submit" class="btn btn-primary">
+								<i class="	fa fa-search"></i>
+							</button>
+						</div>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+
+	<div class="hero-area d-flex flex-wrap">
+	<div class="hero-single-section">
+		{{#forumdata}}
+		{{#key1}}
+		<!-- Single Welcome Post -->
+		<div class="single-welcome-post bg-img item1 wow fadeInUp zoom-image">
+			<!-- Play Button -->
+
+			<!-- Content -->
+			<img src="{{image}}" class="position-absolute">
+			<div class="welcome-post-content position-absolute">
+				<!-- Single Blog Post -->
+				<div class="single-blog-post white">
+					<div class="blog-content">
+
+						<a href="{{newsurl}}" class="post-title">{{title}}</a>
+						<div class="post-meta">
+							<a href="#"><img src="../newsvnr/pix/author.png" alt=""> {{#str}}by, local_newsvnr{{/str}} {{username}}</a>
+							<a href="#"><img src="../newsvnr/pix/calender.png" alt=""> {{time}}</a>
+							<a href="#"><img src="../newsvnr/pix/chat.png" alt=""> {{countcomments}}</a>
+							{{! <a href="#"><img src="../newsvnr/pix/like.png" alt=""> 12k</a> }}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{{/key1}}
+		{{/forumdata}}
+	</div>
+
+	<div class="hero-single-section">
+		{{#forumdata}}
+		{{#key2}}
+		<!-- Single Welcome Post -->
+		<div class="single-welcome-post bg-img item2 wow fadeInUp zoom-image">
+			<!-- Content -->
+			<img src="{{image}}" class="position-absolute">
+			<div class="welcome-post-content position-absolute">
+				<!-- Single Blog Post -->
+				<div class="single-blog-post white">
+					<div class="blog-content">
+
+						<a href="{{newsurl}}" class="post-title">{{title}}</a>
+						<div class="post-meta">
+							<a href="#"><img src="../newsvnr/pix/author.png" alt=""> {{#str}}by, local_newsvnr{{/str}} {{username}}</a>
+							<a href="#"><img src="../newsvnr/pix/calender.png" alt=""> {{time}}</a>
+							<a href="#"><img src="../newsvnr/pix/chat.png" alt=""> {{countcomments}} </a>
+							{{! <a href="#"><img src="../newsvnr/pix/like.png" alt=""> 12k</a> }}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{{/key2}}
+		{{/forumdata}}
+		<div class="hero-second-section d-flex flex-wrap">
+			{{#forumdata}}
+			{{#key3}}
+			<!-- Single Welcome Post -->
+			<div class="single-welcome-post bg-img item3 wow fadeInUp zoom-image">
+				<!-- Content -->
+				<img src="{{image}}" class="position-absolute position-absolute">
+				<div class="welcome-post-content">
+					<!-- Single Blog Post -->
+					<div class="single-blog-post style2 white">
+						<div class="blog-content">
+
+							<a href="{{newsurl}}" class="post-title">{{title}}</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			{{/key3}}
+			{{/forumdata}}
+			{{#forumdata}}
+			{{#key4}}
+			<!-- Single Welcome Post -->
+			<div class="single-welcome-post bg-img item4 wow fadeInUp zoom-image" >
+				<!-- Content -->
+				<img src="{{image}}" class="position-absolute">
+				<div class="welcome-post-content position-absolute">
+					<!-- Single Blog Post -->
+					<div class="single-blog-post style2 white">
+						<div class="blog-content">
+
+							<a href="{{newsurl}}" class="post-title">{{title}}</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			{{/key4}}
+			{{/forumdata}}
+		</div>
+
+	</div>
+	</div>
+
+	<div class="container bonus">
+		<div class="btn-new-latest mt-2">
+			<h3 class="title mb-3">{{#str}}newestnews, local_newsvnr{{/str}}</h3>
+		</div>
+		<div class="row new-latest-body">
+			<div class="owl-carousel owl-theme" id="new-lastest">
+				{{#forumnewestdata}}
+					{{> theme_moove/newscard}}
+				{{/forumnewestdata}}
+			</div>
+		</div>
+
+		<div class="btn-new-course d-flex justify-content-between align-items-center">
+			<h3 class="title">{{#str}}newsbycourse, local_newsvnr{{/str}}</h3>
+			<div id="filter-newsbycourse" class="mb-3" style="width: 300px;"></div>
+		</div>
+
+		<div class="row new-latest-body" id="newsbycourse">
+			{{#forumcoursenewsndata}}
+				<div class="col-xl-3 col-md-4 col-sm-6 col-xs-6" style="padding: 0">
+					{{> theme_moove/newscard}}
+				</div>
+			{{/forumcoursenewsndata}}
+		</div>
+
+		<label class="d-flex justify-content-center"> <a id="view-more-news" href="{{showallurl}}">{{#str}}viewmore, local_newsvnr{{/str}}</a>
+		</label>
+
+	</div>
+</div>
+
+{{/news}}
+
+{{#showall}}
+	<div class="container bonus">
+		<div class="btn-new-latest">
+			<h3 class="title mb-0">{{#str}}allnewsbycourse, local_newsvnr{{/str}}</h3>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-md-7">
+					<div style="border-bottom: #F0F0F0 1px solid;margin-bottom: 15px;">
+					Danh mục:<br> <select class="pagination-setting" onchange="FilterDicussionByCourseId(this.value);" >
+						<option value="" selected="selected">{{#str}}viewall, local_newsvnr{{/str}}</option>
+						{{#list_news_of_course}}
+							<option value="{{courseid}}">{{fullname}}</option>
+						{{/list_news_of_course}}		
+					</select>
+					</div>
+					
+					<div id="pagination-result">
+						<input type="hidden" name="rowcount" id="rowcount" />
+					</div>
+			</div>
+		</div>
+		<div class="row new-latest-body" id="see-all-news">		
+			<!-- Pagination -->
+		</div>	
+	</div>
+{{/showall}}
+{{#forumdatasearch}}
+
+<div class="container-new">
+	<div class="container">
+		<div class="btn-new-latest">
+			<h3 class="title">{{#str}}found, local_newsvnr{{/str}} {{newsnumber}} {{#str}}foundnewsbykeywords, local_newsvnr{{/str}} "{{searchquery}}"</h3>
+		</div>
+		<hr>
+		<div class="row new-latest-body">
+			{{#courseendable}}
+			{{#forumsearchdata}}
+			<div class="col-xl-3 mb-3" style="padding: 0">
+					{{> theme_moove/newscard}}
+			</div>
+			{{/forumsearchdata}}
+			{{/courseendable}}
+	</div>
+</div>
+
+{{/forumdatasearch}}
+

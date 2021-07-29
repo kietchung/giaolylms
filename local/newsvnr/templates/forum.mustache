@@ -1,0 +1,237 @@
+<div class="container-fluid">
+        <div class="forum-container">
+            <div class="forum-general-box">
+                <div class="forum-general-header">
+                    <div class="row">
+                        <div class="col-12 col-md-6 forum-general-btn pt-0">
+                            {{#str}}newpost, local_newsvnr{{/str}}
+                        </div>
+                        
+                    </div>
+                </div>
+                <table class="forum-general-table w-100">
+                    <thead>
+                        <tr class="row m-0">
+                            <th class="col-6 col-md-5">{{#str}}post, local_newsvnr{{/str}}</th>
+                            <th class="col-6 col-md-1"></th>
+                            <th class="d-none d-sm-block col-md-2">{{#str}}author, local_newsvnr{{/str}}</th>
+                            <th class="d-none d-sm-block col-md-4">{{#str}}topic, local_newsvnr{{/str}}</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                         {{#forumnewstdata}}
+                        <tr class="row m-0 border d-flex align-items-center" style="height: 40px">
+                            <td class="col-9 col-md-5 botron-trai">
+                                {{{disscussurl}}}
+                            </td>
+                            <td class="col-3 col-md-1 square-control border-giua">
+                                {{{subcribe}}}
+                            </td>
+                            <td class="d-none d-sm-block col-md-2 border-giua">{{{userurl}}}</td>
+                            <td class="d-none d-sm-block col-md-4 botron-phai">{{{viewurl}}}</td>
+                        </tr>
+                     {{/forumnewstdata}}
+                      
+                    </tbody>
+                        
+                </table>
+            </div>
+
+            <div class="forum-general-box">
+                <div class="forum-general-header">
+                    <div class="row">
+                        <div class="col-12 col-md-6 forum-general-btn">
+                            {{#str}}popularforum, local_newsvnr{{/str}}
+                        </div>
+                        
+                    </div>
+                </div>
+                <table class="forum-general-table w-100">
+                    <thead>
+                        <tr class="row m-0">
+                            <th class="col-9 col-md-3">{{#str}}topic, local_newsvnr{{/str}}</th>
+                            <th class="col-3 col-md-1"></th>
+                            <th class="d-none d-sm-block col-md-3">{{#str}}datecreated, local_newsvnr{{/str}}</th>
+                            <th class="d-none d-sm-block col-md-2">{{#str}}numberpost, local_newsvnr{{/str}}</th>
+                            <th class="d-none d-sm-block col-md-3">{{#str}}newpost, local_newsvnr{{/str}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#forumgeneraldata}}
+                        <tr class="row m-0 border d-flex align-items-center">
+                            <td class="col-9 col-md-3 botron-trai">
+                                {{{viewurl}}}
+                            </td>
+                            <td class="col-3 col-md-1 square-control border-giua">
+                                {{{subcribe}}}
+                            </td>
+                            <td class="d-none d-sm-block col-md-3 border-giua">{{{createtime}}}</td>
+                            <td class="d-none d-sm-block col-md-2 border-giua">{{postnumber}}</td>
+                            <td class="d-none d-sm-block col-md-3 botron-phai">{{{disscussurl}}} </br>{{#str}}by, local_newsvnr{{/str}}: <i class="forum-user">{{{userurl}}}
+                        </tr>
+                        {{/forumgeneraldata}}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="forum-general-box">
+                <div class="forum-general-header">
+                    <div class="row">
+                        <div class="col-12 col-md-6 forum-general-btn">
+                            {{#str}}blogforum, local_newsvnr{{/str}}
+                        </div>
+                        
+                    </div>
+                </div>
+                <table class="forum-general-table w-100">
+                    <thead>
+                        <tr class="row m-0 border">
+                            <th class="col-9 col-md-3">{{#str}}topic, local_newsvnr{{/str}}</th>
+                            <th class="col-3 col-md-1"></th>
+                            <th class="d-none d-sm-block col-md-3">{{#str}}datecreated, local_newsvnr{{/str}}</th>
+                            <th class="d-none d-sm-block col-md-2">{{#str}}numberpost, local_newsvnr{{/str}}</th>
+                            <th class="d-none d-sm-block col-md-3">{{#str}}newpost, local_newsvnr{{/str}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#forumblogdata}}
+                        <tr class="row m-0 border d-flex align-items-center">
+                            <td class="col-9 col-md-3 botron-trai">
+                                {{{viewurl}}}
+                            </td>
+                            <td class="col-3 col-md-1 square-control border-giua">
+                                {{{subcribe}}}
+                            </td>
+                            <td class="d-none d-sm-block col-md-3 border-giua">{{{createtime}}}</td>
+                            <td class="d-none d-sm-block col-md-2 border-giua">{{postnumber}}</td>
+                            <td class="d-none d-sm-block col-md-3 botron-phai">{{{disscussurl}}} </br>{{#str}}by, local_newsvnr{{/str}}: <i class="forum-user">{{{userurl}}}
+                        </tr>
+                        {{/forumblogdata}}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="forum-general-box">
+                <div class="forum-general-header">
+                    <div class="row">
+                        <div class="col-12 col-md-6 forum-general-btn">
+                            {{#str}}singleforum, local_newsvnr{{/str}}
+                        </div>
+                       
+                    </div>
+                </div>
+                <table class="forum-general-table w-100">
+                    <thead>
+                        <tr class="row m-0">
+                            <th class="col-9 col-md-3">{{#str}}topic, local_newsvnr{{/str}}</th>
+                            <th class="col-3 col-md-1"></th>
+                            <th class="d-none d-sm-block col-md-3">{{#str}}datecreated, local_newsvnr{{/str}}</th>
+                            <th class="d-none d-sm-block col-md-2">{{#str}}numberpost, local_newsvnr{{/str}}</th>
+                            <th class="d-none d-sm-block col-md-3">{{#str}}newpost, local_newsvnr{{/str}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#forumsingledata}}
+                        <tr class="row m-0 border d-flex align-items-center">
+                            <td class="col-9 col-md-3 botron-trai">
+                                {{{viewurl}}}
+                            </td>
+                            <td class="col-3 col-md-1 square-control border-giua">
+                                {{{subcribe}}}
+                               
+                            </td>
+                            <td class="d-none d-sm-block col-md-3 border-giua">{{{createtime}}}</td>
+                            <td class="d-none d-sm-block col-md-2 border-giua">{{postnumber}}</td>
+                            <td class="d-none d-sm-block col-md-3 botron-phai">{{{disscussurl}}} </br>{{#str}}by, local_newsvnr{{/str}}: <i class="forum-user">{{{userurl}}}
+                                 </i>
+                            </td>
+                        </tr>
+                        {{/forumsingledata}}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="forum-general-box">
+                <div class="forum-general-header">
+                    <div class="row">
+                        <div class="col-12 col-md-6 forum-general-btn">
+                            {{#str}}questionforum, local_newsvnr{{/str}}
+                        </div>
+                       
+                    </div>
+                </div>
+                <table class="forum-general-table w-100">
+                    <thead>
+                        <tr class="row m-0">
+                            <th class="col-9 col-md-3">{{#str}}topic, local_newsvnr{{/str}}</th>
+                            <th class="col-3 col-md-1"></th>
+                            <th class="d-none d-sm-block col-md-3">{{#str}}datecreated, local_newsvnr{{/str}}</th>
+                            <th class="d-none d-sm-block col-md-2">{{#str}}numberpost, local_newsvnr{{/str}}</th>
+                            <th class="d-none d-sm-block col-md-3">{{#str}}newpost, local_newsvnr{{/str}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#quandadata}}
+                        <tr class="row m-0 border d-flex align-items-center">
+                            <td class="col-9 col-md-3 botron-trai">
+                                {{{viewurl}}}
+                            </td>
+                            <td class="col-3 col-md-1 square-control border-giua">
+                                {{{subcribe}}}
+                               
+                            </td>
+                            <td class="d-none d-sm-block col-md-3 border-giua">{{{createtime}}}</td>
+                            <td class="d-none d-sm-block col-md-2 border-giua">{{postnumber}}</td>
+                            <td class="d-none d-sm-block col-md-3 botron-phai">{{{disscussurl}}} </br>{{#str}}by, local_newsvnr{{/str}}: <i class="forum-user">{{{userurl}}}
+                                 </i>
+                            </td>
+                        </tr>
+                        {{/quandadata}}
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div class="forum-general-box">
+                <div class="forum-general-header">
+                    <div class="row">
+                        <div class="col-12 col-md-6 forum-general-btn">
+                            {{#str}}freedomforum, local_newsvnr{{/str}}
+                        </div>
+                       
+                    </div>
+                </div>
+                <table class="forum-general-table w-100">
+                    <thead>
+                        <tr class="row m-0">
+                            <th class="col-9 col-md-3">{{#str}}topic, local_newsvnr{{/str}}</th>
+                            <th class="col-3 col-md-1"></th>
+                            <th class="d-none d-sm-block col-md-3">{{#str}}datecreated, local_newsvnr{{/str}}</th>
+                            <th class="d-none d-sm-block col-md-2">{{#str}}numberpost, local_newsvnr{{/str}}</th>
+                            <th class="d-none d-sm-block col-md-3">{{#str}}newpost, local_newsvnr{{/str}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#eachuserdata}}
+                        <tr class="row m-0 border d-flex align-items-center">
+                            <td class="col-9 col-md-3 botron-trai">
+                                {{{viewurl}}}
+                            </td>
+                            <td class="col-3 col-md-1 square-control border-giua">
+                                {{{subcribe}}}
+                               
+                            </td>
+                            <td class="d-none d-sm-block col-md-3 border-giua">{{{createtime}}}</td>
+                            <td class="d-none d-sm-block col-md-2 border-giua">{{postnumber}}</td>
+                            <td class="d-none d-sm-block col-md-3 botron-phai">{{{disscussurl}}} </br>{{#str}}by, local_newsvnr{{/str}}: <i class="forum-user">{{{userurl}}}
+                                 </i>
+                            </td>
+                        </tr>
+                        {{/eachuserdata}}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>

@@ -688,25 +688,6 @@ class core_renderer extends \theme_boost\output\core_renderer {
             return $output;
         }
 
-        $pluginswithfunction = get_plugins_with_function('standard_footer_html', 'lib.php');
-        foreach ($pluginswithfunction as $plugins) {
-            foreach ($plugins as $function) {
-                if ($function === 'tool_dataprivacy_standard_footer_html') {
-                    $output .= $this->get_dataprivacyurl();
-
-                    continue;
-                }
-
-                if ($function === 'tool_mobile_standard_footer_html') {
-                    $output .= $this->get_mobileappurl();
-
-                    continue;
-                }
-
-                $output .= $function();
-            }
-        }
-
         $output .= $this->unique_performance_info_token;
         if ($this->page->devicetypeinuse == 'legacy') {
             // The legacy theme is in use print the notification.
@@ -852,4 +833,35 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
         return ' id="'. $this->body_id().'" class="'.$this->body_css_classes($additionalclasses).'"';
     }
+
+    public function full_header_moove() {
+        $html = '';
+        $html = $this->context_header_settings_menu();
+        return $html;
+    }
+
+    public function get_js_moove() {
+        global $PAGE;
+        $output = '';
+        $output .= $PAGE->requires->js('/theme/moove/js/jquery-3.2.1.min.js', true);
+        $output .= $PAGE->requires->js('/theme/moove/js/owl.carousel.js', true);
+        $output .= $PAGE->requires->js('/theme/moove/js/modernizr-3.5.0.min.js', true);
+        $output .= $PAGE->requires->js('/theme/moove/js/jquery.stellar.min.js', true);
+        $output .= $PAGE->requires->js('/theme/moove/js/jquery.waypoints.min.js', true);
+        $output .= $PAGE->requires->js('/theme/moove/js/main.js', true);
+        return $output;
+    }
+    public function get_css_moove() {
+        global $PAGE;
+        $output = '';
+        $output .= $PAGE->requires->css('/theme/moove/css/media_query.css');
+        $output .= $PAGE->requires->css('/theme/moove/css/animate.css');
+        $output .= $PAGE->requires->css('/theme/moove/css/owl.carousel.css');
+        $output .= $PAGE->requires->css('/theme/moove/css/owl.theme.default.css');
+        $output .= $PAGE->requires->css('/theme/moove/css/style_1.css');
+
+        return $output;
+    }
+
+    
 }

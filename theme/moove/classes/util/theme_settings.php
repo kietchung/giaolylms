@@ -26,6 +26,16 @@ namespace theme_moove\util;
 
 use theme_config;
 use stdClass;
+use single_button;
+use moodle_url;
+use context_course;
+use theme_moove\util\extras;
+use coursecat_helper;
+use core_course_category;
+use core_course_list_element;
+use DateTime;
+use context_system;
+use context_module;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -226,4 +236,218 @@ class theme_settings {
 
         return $templatecontext;
     }
+
+    public function get_forums_header_data() {
+        global $OUTPUT,$DB,$CFG,$USER;
+        require_once($CFG->dirroot.'/local/newsvnr/lib.php');
+
+        $arr = array();
+        $sql = "SELECT p.subject, LEFT(p.message, 500) as message, d.name,d.id,d.forum,d.course,p.id as postid, p.modified
+                FROM {forum} as f
+                    LEFT JOIN  {forum_discussions} as d on f.id  = d.forum 
+                    INNER JOIN {forum_posts} as p on d.id = p.discussion
+                WHERE f.type = ? AND d.pinned= ? LIMIT 5
+                ";  
+        $data = $DB->get_records_sql($sql,array('news',1));
+        $templatecontext['sliderenabled'] = "1";
+        foreach ($data as $key => $value) {        
+            $arr[] = (array)$value;
+        }
+        for ($i = 1, $j = 0; $i <= count($data); $i++, $j++) {
+            $key = 'key' . $i;
+            $templatecontext['hotnews'][$j][$key] = true;
+            $templatecontext['hotnews'][$j]['active'] = false;
+            $fs = get_file_storage();
+            $imagereturn = '';
+
+            $post = $DB->get_record('forum_posts',['id' => $arr[$j]['postid']]);
+            $cm = get_coursemodule_from_instance('forum', $arr[$j]['forum'], $arr[$j]['course'], false, MUST_EXIST);
+            $context = context_module::instance($cm->id);
+            $files = $fs->get_area_files($context->id, 'mod_forum', 'attachment', $post->id, "filename", false);
+           
+            if ($files) {
+                foreach ($files as $file) {
+                    $filename = $file->get_filename();
+                    $mimetype = $file->get_mimetype();
+                    $iconimage = $OUTPUT->pix_icon(file_file_icon($file), get_mimetype_description($file), 'moodle', array('class' => 'icon'));
+                    $path = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$context->id.'/mod_forum/attachment/'.$post->id.'/'.$filename);
+                    $imagereturn .= "<img src=\"$path\" alt=\"\" />";
+                }
+            }
+
+            if(!$imagereturn) {
+              $courseimage = $OUTPUT->get_generated_image_for_id($arr[$j]['postid']);
+              $imagereturn = "<div style='background-image: url($courseimage); width: 100%;
+    height: 100%;'></div>";
+            }
+
+            $templatecontext['hotnews'][$j]['subject'] = $arr[$j]['subject'];
+            $templatecontext['hotnews'][$j]['message'] = strip_tags($arr[$j]['message']);
+            $templatecontext['hotnews'][$j]['name'] = $arr[$j]['name'];
+            $templatecontext['hotnews'][$j]['image'] = $imagereturn;
+            $templatecontext['hotnews'][$j]['timecreated'] = convertunixtime('l, d m Y',$arr[$j]['modified'],'Asia/Ho_Chi_Minh');
+            $templatecontext['hotnews'][$j]['newsurl'] = $CFG->wwwroot."/news.php?id=".$arr[$j]['id'];
+            if ($i === 1) {
+                $templatecontext['hotnews'][$j]['active'] = true;
+            }
+        }
+        return $templatecontext;
+    }
+    public function get_btn_add_news() {
+        global $OUTPUT,$USER, $DB;
+        if(has_capability('moodle/site:configview', context_system::instance())) { 
+            $forumid = $DB->get_field_sql("SELECT id FROM mdl_forum WHERE course = :courseid", ['courseid' => 1]);
+            $buttonadd = get_string('addanewdiscussion', 'forum');
+            $button = new single_button(new moodle_url('/mod/forum/post.php', ['forum' => $forumid]), $buttonadd, 'get');
+            $button->class = 'singlebutton forumaddnew';
+            $button->formid = 'newdiscussionform';
+            $renderbtn = $OUTPUT->render($button);
+            $templatecontext['btnaddnews'] = $renderbtn;
+             return $templatecontext;
+        } else {   $templatecontext['btnaddnews'] = '';
+            return $templatecontext;   
+        } 
+           
+    }
+    public function get_forums_trending_data() {
+        global $OUTPUT,$DB,$CFG,$USER;
+        require_once($CFG->dirroot.'/local/newsvnr/lib.php');
+        $forumid = $DB->get_field_sql("SELECT id FROM mdl_forum WHERE course = :courseid LIMIT 1", ['courseid' => 1]);
+        $arr = array();
+        $forum = $DB->get_record('forum', array('id' => $forumid), '*', MUST_EXIST);
+        list($course, $cm) = get_course_and_cm_from_instance($forum, 'forum');
+
+        $context = context_module::instance($cm->id);
+        $sql_gettrending = "SELECT objectid 
+                            FROM mdl_logstore_standard_log 
+                            WHERE contextid = :contextid 
+                                AND action = 'viewed' 
+                                AND (timecreated BETWEEN (
+                                                        SELECT (timecreated-86400) timecreated 
+                                                        FROM mdl_logstore_standard_log 
+                                                        WHERE `contextid` = 38 AND ACTION = 'viewed' ORDER BY timecreated DESC LIMIT 1) 
+                                                        AND 
+                                                        timecreated)
+                            GROUP by objectid
+                            ORDER BY timecreated DESC LIMIT 8
+        ";
+        $exc_gettrending = $DB->get_records_sql($sql_gettrending, ['contextid' => $context->id]);
+        $discussionids = [];
+        foreach($exc_gettrending as $discussion) {
+            $discussionids[] = $discussion->objectid; 
+        }
+        $strdiscussionids = implode(',', $discussionids);
+        $sql = "SELECT p.subject, LEFT(p.message, 500) as message, d.name,d.id,d.forum,d.course,p.id as postid, p.modified, d.countviews, d.userid
+                FROM {forum} as f
+                    LEFT JOIN  {forum_discussions} as d on f.id  = d.forum 
+                    INNER JOIN {forum_posts} as p on d.id = p.discussion
+                WHERE f.type = ? AND d.id IN ($strdiscussionids)
+                ";  
+        $data = $DB->get_records_sql($sql,array('news'));
+        $templatecontext['sliderenabled'] = "1";
+        foreach ($data as $key => $value) {        
+            $arr[] = (array)$value;
+        }
+        for ($i = 1, $j = 0; $i <= count($data); $i++, $j++) {
+            $key = 'key' . $i;
+            $templatecontext['trendingnews'][$j][$key] = true;
+            $templatecontext['trendingnews'][$j]['active'] = false;
+            $fs = get_file_storage();
+            $imagereturn = '';
+
+            $post = $DB->get_record('forum_posts',['id' => $arr[$j]['postid']]);
+            $cm = get_coursemodule_from_instance('forum', $arr[$j]['forum'], $arr[$j]['course'], false, MUST_EXIST);
+            $context = context_module::instance($cm->id);
+            $files = $fs->get_area_files($context->id, 'mod_forum', 'attachment', $post->id, "filename", false);
+           
+            if ($files) {
+                foreach ($files as $file) {
+                    $filename = $file->get_filename();
+                    $mimetype = $file->get_mimetype();
+                    $iconimage = $OUTPUT->pix_icon(file_file_icon($file), get_mimetype_description($file), 'moodle', array('class' => 'icon'));
+                    $path = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$context->id.'/mod_forum/attachment/'.$post->id.'/'.$filename);
+                    $imagereturn .= "<img src=\"$path\" class=\"fh5co_img_special_relative\" alt=\"\" />";
+                }
+            }
+
+            if(!$imagereturn) {
+              $courseimage = $OUTPUT->get_generated_image_for_id($arr[$j]['postid']);
+              $imagereturn .= "<img src=\"$courseimage\" class=\"fh5co_img_special_relative\" alt=\"\" />";
+    //           $imagereturn = "<div style='background-image: url($courseimage); width: 100%;
+    // height: 100%;'></div>";
+            }
+
+            $templatecontext['trendingnews'][$j]['subject'] = $arr[$j]['subject'];
+            $templatecontext['trendingnews'][$j]['author'] = fullname($DB->get_record('user', ['id' => $arr[$j]['userid']]));
+            $templatecontext['trendingnews'][$j]['message'] = strip_tags($arr[$j]['message']);
+            $templatecontext['trendingnews'][$j]['name'] = $arr[$j]['name'];
+            $templatecontext['trendingnews'][$j]['image'] = $imagereturn;
+            $templatecontext['trendingnews'][$j]['timecreated'] = convertunixtime('l, d m Y',$arr[$j]['modified'],'Asia/Ho_Chi_Minh');
+            $templatecontext['trendingnews'][$j]['newsurl'] = $CFG->wwwroot."/local/newsvnr/news.php?id=".$arr[$j]['id'];
+            if ($i === 1) {
+                $templatecontext['trendingnews'][$j]['active'] = true;
+            }
+        }
+        return $templatecontext;
+    }
+    public function get_forums_newestnews_data() {
+        global $OUTPUT,$DB,$CFG,$USER;
+        require_once($CFG->dirroot.'/local/newsvnr/lib.php');
+
+        $arr = array();
+        $sql = "SELECT p.subject, LEFT(p.message, 500) as message, d.name,d.id,d.forum,d.course,p.id as postid, p.modified, d.userid
+                FROM {forum} as f
+                    LEFT JOIN  {forum_discussions} as d on f.id  = d.forum 
+                    INNER JOIN {forum_posts} as p on d.id = p.discussion
+                WHERE f.type = ?
+                ORDER BY d.timemodified DESC
+                LIMIT 5
+                ";  
+        $data = $DB->get_records_sql($sql,array('news'));
+        $templatecontext['sliderenabled'] = "1";
+        foreach ($data as $key => $value) {        
+            $arr[] = (array)$value;
+        }
+        for ($i = 1, $j = 0; $i <= count($data); $i++, $j++) {
+            $key = 'key' . $i;
+            $templatecontext['newestnews'][$j][$key] = true;
+            $templatecontext['newestnews'][$j]['active'] = false;
+            $fs = get_file_storage();
+            $imagereturn = '';
+
+            $post = $DB->get_record('forum_posts',['id' => $arr[$j]['postid']]);
+            $cm = get_coursemodule_from_instance('forum', $arr[$j]['forum'], $arr[$j]['course'], false, MUST_EXIST);
+            $context = context_module::instance($cm->id);
+            $files = $fs->get_area_files($context->id, 'mod_forum', 'attachment', $post->id, "filename", false);
+           
+            if ($files) {
+                foreach ($files as $file) {
+                    $filename = $file->get_filename();
+                    $mimetype = $file->get_mimetype();
+                    $iconimage = $OUTPUT->pix_icon(file_file_icon($file), get_mimetype_description($file), 'moodle', array('class' => 'icon'));
+                    $path = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$context->id.'/mod_forum/attachment/'.$post->id.'/'.$filename);
+                    $imagereturn .= "<img src=\"$path\" alt=\"\" />";
+                }
+            }
+
+            if(!$imagereturn) {
+              $courseimage = $OUTPUT->get_generated_image_for_id($arr[$j]['postid']);
+              $imagereturn = "<div style='background-image: url($courseimage); width: 100%;
+    height: 100%;'></div>";
+            }
+
+            $templatecontext['newestnews'][$j]['subject'] = $arr[$j]['subject'];
+            $templatecontext['newestnews'][$j]['author'] = fullname($DB->get_record('user', ['id' => $arr[$j]['userid']]));
+            $templatecontext['newestnews'][$j]['message'] = strip_tags($arr[$j]['message']);
+            $templatecontext['newestnews'][$j]['name'] = $arr[$j]['name'];
+            $templatecontext['newestnews'][$j]['image'] = $imagereturn;
+            $templatecontext['newestnews'][$j]['timecreated'] = convertunixtime('l, d m Y',$arr[$j]['modified'],'Asia/Ho_Chi_Minh');
+            $templatecontext['newestnews'][$j]['newsurl'] = $CFG->wwwroot."/news.php?id=".$arr[$j]['id'];
+            if ($i === 1) {
+                $templatecontext['newestnews'][$j]['active'] = true;
+            }
+        }
+        return $templatecontext;
+    }
+
 }

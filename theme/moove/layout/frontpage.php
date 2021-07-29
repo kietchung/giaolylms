@@ -72,7 +72,7 @@ if (isloggedin()) {
 
     $templatecontext['flatnavigation'] = $PAGE->flatnav;
 
-    $templatecontext = array_merge($templatecontext, $themesettings->footer_items(), $themesettings->slideshow());
+    $templatecontext = array_merge($templatecontext, $themesettings->get_forums_trending_data(), $themesettings->get_forums_newestnews_data(), $themesettings->footer_items(), $themesettings->slideshow(), $themesettings->get_forums_header_data());
 
     echo $OUTPUT->render_from_template('theme_moove/frontpage', $templatecontext);
 } else {
@@ -139,7 +139,7 @@ if (isloggedin()) {
         'logintoken' => \core\session\manager::get_login_token()
     ];
 
-    $templatecontext = array_merge($templatecontext, $themesettings->footer_items(), $themesettings->marketing_items());
+    $templatecontext = array_merge($templatecontext, $themesettings->get_forums_trending_data(), $themesettings->get_forums_newestnews_data(), $themesettings->footer_items(), $themesettings->marketing_items());
 
     if ($sliderfrontpage) {
         $templatecontext = array_merge($templatecontext, $themesettings->slideshow());

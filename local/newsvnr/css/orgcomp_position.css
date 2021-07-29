@@ -1,0 +1,43 @@
+
+.orgcomp-position{
+	position: relative;
+	padding-bottom: 50px;
+}
+
+.orgcomp-position .row{
+	margin-bottom: 30px;
+}
+
+.orgcomp-position .row #myModal .modal-body{
+	display: flex;
+}
+
+.orgcomp-position .row .list-standard{
+	display: inline-block;
+	overflow-x: hidden;
+	height: 300px;
+}
+
+.orgcomp-position .row .list-standard > ul > li{
+	cursor: pointer;
+}
+
+.orgcomp-position .row .comp-tree{
+	display: inline-block;
+}
+
+.orgcomp-position .row .comp-tree > input{
+	border-radius: 5px;
+}
+
+.orgcomp-position .row #myModal1 .modal-body .form .form-group{
+	display: flex;
+}
+
+#ui-datepicker-div{
+	z-index: 10000! important;
+}
+
+.orgcomp-position .row #myModal1 .modal-body .form .form-group label{
+	padding-top: 5px;
+}

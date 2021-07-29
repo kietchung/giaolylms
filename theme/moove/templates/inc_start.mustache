@@ -9,11 +9,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
 
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+    <link href="/theme/moove/css/media_query.css" rel="stylesheet" type="text/css"/>
+    <link href="/theme/moove/css/animate.css" rel="stylesheet" type="text/css"/>
+    <link href="/theme/moove/css/owl.carousel.css" rel="stylesheet" type="text/css"/>
+    <link href="/theme/moove/css/owl.theme.default.css" rel="stylesheet" type="text/css"/>
+    <!-- Bootstrap CSS -->
+    <link href="/theme/moove/css/style_1.css" rel="stylesheet" type="text/css"/>
+    <!-- Modernizr JS -->
+    {{{output.get_js_moove}}}
 </head>
 <style type="text/css">
     
     body, html {
         font-family: Arial, Helvetica, sans-serif;
+    }
+    a {
+        text-decoration: none !important;
+    }
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+      background: #b8b9bf;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #888;
+      
+    }
+    @media (min-width: 768px) {
+        body {
+            margin-left: 0px;
+        }
+    }
+    .aabtn.focus, .aabtn:focus, .btn-link.focus, .btn-link:focus, .nav-link.focus, .nav-link:focus, .editor_atto_toolbar button.focus, .editor_atto_toolbar button:focus, [role="button"].focus, [role="button"]:focus, .list-group-item-action.focus, .list-group-item-action:focus, input[type="checkbox"].focus, input[type="checkbox"]:focus, input[type="radio"].focus, input[type="radio"]:focus, input[type="file"].focus, input[type="file"]:focus, input[type="image"].focus, input[type="image"]:focus, .sr-only-focusable.focus, .sr-only-focusable:focus, a.dropdown-toggle.focus, a.dropdown-toggle:focus, .modal-dialog[tabindex="0"].focus, .modal-dialog[tabindex="0"]:focus, .moodle-dialogue-base .closebutton.focus, .moodle-dialogue-base .closebutton:focus, button.close.focus, button.close:focus, .form-autocomplete-selection.focus, .form-autocomplete-selection:focus {
+        box-shadow: none;
+    }
+    #nav-drawer {
+        background-color: #0f6fc5;
+        height: calc(100% - 70px);
+    }
+    #nav-drawer.closed {
+        display: none;
+    }
+    #nav-drawer-footer {
+        display: none;
+    }
+    nav.navbar .drawer-toggle {
+        background-color: #0f6fc5;
     }
     .header-banner-image {
         background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../theme/moove/pix/default_course.jpg");
@@ -23,7 +67,77 @@
         background-size: cover;
         position: relative;
     }
-   
+    #sidepre-blocks {
+        padding: 1rem;
+        background-color: #e3eef5;
+        margin-bottom: 0;
+        -webkit-box-shadow: 0 8px 16px 0 rgb(0 0 0 / 16%); 
+        box-shadow: 0 8px 16px 0 rgb(0 0 0 / 16%);
+        border: 0;
+    }
+    .card {
+        border-radius: 8px;
+    }
+    @media (min-width: 1200px) {
+        .card-deck .card {
+            flex-basis: calc(20% - .5rem);
+        }
+    }
+    #page-site-index h3.categoryname {
+        font-size: 22px
+    }
+    #page-site-index h3.categoryname a {
+        color: #222 !important;
+    }
+    #page-site-index h4.categoryname {
+        font-size: 20px
+    }
+    #page-site-index h4.categoryname a {
+        color: #222 !important;
+    }
+    #frontpage-category-combo h4.card-title {
+        font-size: 20px;
+    }
+    .title-read-more {
+        font-weight: 400;
+        line-height: 1.3;
+        display: -webkit-box;
+        margin: 0 auto;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    #page-news .card-body {
+        padding: 0px;
+    }
+    .form-control.fh5co_text_select_option {
+        top: -15px;
+        display: block;
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        font-size: 1rem;
+        line-height: 1.25;
+        color: #464a4c;
+        background-color: #fff;
+        background-image: none;
+        -webkit-background-clip: padding-box;
+        background-clip: padding-box;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        border-radius: 0.25rem;
+        -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
+        transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
+        -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
+    }
+    .single #fh5co-title-box {
+        height: 400px;
+    }
+    .owl-theme .owl-nav [class*='owl-'] {
+        border: 0;
+    }
+    
 
 </style>
 <body {{{ bodyattributes }}}>
