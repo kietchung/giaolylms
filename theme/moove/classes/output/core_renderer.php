@@ -863,5 +863,11 @@ class core_renderer extends \theme_boost\output\core_renderer {
         return $output;
     }
 
+    public function get_logo_news() {
+        $output = '';
+        $output .= $this->get_logo();
+        return $output;
+    }
+
     
 }

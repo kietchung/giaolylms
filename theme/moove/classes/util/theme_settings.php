@@ -383,7 +383,7 @@ class theme_settings {
             $templatecontext['trendingnews'][$j]['name'] = $arr[$j]['name'];
             $templatecontext['trendingnews'][$j]['image'] = $imagereturn;
             $templatecontext['trendingnews'][$j]['timecreated'] = convertunixtime('l, d m Y',$arr[$j]['modified'],'Asia/Ho_Chi_Minh');
-            $templatecontext['trendingnews'][$j]['newsurl'] = $CFG->wwwroot."/local/newsvnr/news.php?id=".$arr[$j]['id'];
+            $templatecontext['trendingnews'][$j]['newsurl'] = $CFG->wwwroot."/news.php?id=".$arr[$j]['id'];
             if ($i === 1) {
                 $templatecontext['trendingnews'][$j]['active'] = true;
             }
@@ -447,6 +447,86 @@ class theme_settings {
                 $templatecontext['newestnews'][$j]['active'] = true;
             }
         }
+        return $templatecontext;
+    }
+
+    public function get_forums_mostviews_data() {
+        global $OUTPUT,$DB,$CFG,$USER;
+        require_once($CFG->dirroot.'/local/newsvnr/lib.php');
+
+        $arr = array();
+        $sql = "SELECT p.subject, LEFT(p.message, 500) as message, d.name,d.id,d.forum,d.course,p.id as postid, p.modified, d.userid
+                FROM {forum} as f
+                    LEFT JOIN  {forum_discussions} as d on f.id  = d.forum 
+                    INNER JOIN {forum_posts} as p on d.id = p.discussion
+                WHERE f.type = ?
+                ORDER BY d.countviews DESC
+                LIMIT 3
+                ";  
+        $data = $DB->get_records_sql($sql,array('news'));
+        $templatecontext['sliderenabled'] = "1";
+        foreach ($data as $key => $value) {        
+            $arr[] = (array)$value;
+        }
+        for ($i = 1, $j = 0; $i <= count($data); $i++, $j++) {
+            $key = 'key' . $i;
+            $templatecontext['mostviewsnews'][$j][$key] = true;
+            $templatecontext['mostviewsnews'][$j]['active'] = false;
+            $fs = get_file_storage();
+            $imagereturn = '';
+
+            $post = $DB->get_record('forum_posts',['id' => $arr[$j]['postid']]);
+            $cm = get_coursemodule_from_instance('forum', $arr[$j]['forum'], $arr[$j]['course'], false, MUST_EXIST);
+            $context = context_module::instance($cm->id);
+            $files = $fs->get_area_files($context->id, 'mod_forum', 'attachment', $post->id, "filename", false);
+           
+            if ($files) {
+                foreach ($files as $file) {
+                    $filename = $file->get_filename();
+                    $mimetype = $file->get_mimetype();
+                    $iconimage = $OUTPUT->pix_icon(file_file_icon($file), get_mimetype_description($file), 'moodle', array('class' => 'icon'));
+                    $path = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$context->id.'/mod_forum/attachment/'.$post->id.'/'.$filename);
+                    $imagereturn .= $path;
+                }
+            }
+
+            if(!$imagereturn) {
+              $courseimage = $OUTPUT->get_generated_image_for_id($arr[$j]['postid']);
+              $imagereturn = $courseimage;
+            }
+
+            $templatecontext['mostviewsnews'][$j]['subject'] = $arr[$j]['subject'];
+            $templatecontext['mostviewsnews'][$j]['author'] = fullname($DB->get_record('user', ['id' => $arr[$j]['userid']]));
+            $templatecontext['mostviewsnews'][$j]['message'] = strip_tags($arr[$j]['message']);
+            $templatecontext['mostviewsnews'][$j]['name'] = $arr[$j]['name'];
+            $templatecontext['mostviewsnews'][$j]['image'] = $imagereturn;
+            $templatecontext['mostviewsnews'][$j]['timecreated'] = convertunixtime('l, d m Y',$arr[$j]['modified'],'Asia/Ho_Chi_Minh');
+            $templatecontext['mostviewsnews'][$j]['newsurl'] = $CFG->wwwroot."/news.php?id=".$arr[$j]['id'];
+            if ($i === 1) {
+                $templatecontext['mostviewsnews'][$j]['active'] = true;
+            }
+        }
+        return $templatecontext;
+    }
+
+    public function get_course_category() {
+        global $DB, $CFG;
+        $sql = "SELECT * FROM {course_categories} WHERE parent = 0 ORDER BY timemodified DESC LIMIT 7";
+        $data = $DB->get_records_sql($sql);
+        $arr = array();
+        foreach ($data as $key => $value) {        
+            $arr[] = (array)$value;
+        }
+        for ($i = 1, $j = 0; $i <= count($data); $i++, $j++) {
+            $templatecontext['coursecategories'][$j]['name'] = $arr[$j]['name'];
+            $templatecontext['coursecategories'][$j]['url'] = $CFG->wwwroot . '/course/index.php?categoryid=' . $arr[$j]['id'];
+        }
+        return $templatecontext;
+    }
+    
+    public function get_logo_news() {
+        $theme = theme_config::load('moove');
+        $templatecontext['logonews'] = $theme->setting_file_url('logo', 'logo');
         return $templatecontext;
     }
 

@@ -52,7 +52,7 @@
 
     <div id="page" class="container-fluid d-print-block">
         {{>theme_moove/slideshow}}
-        <header id="page-header-banner" class="row">
+        <header id="page-header-banner" class="row d-none">
             <div class="col-12 pt-3 pb-3">
                 <div class="card">
                         <div class="align-items-center">
@@ -97,17 +97,65 @@
                             {{{ output.course_content_footer }}}
                         </div>
                     </div>
-                    {{! <div class="card">
-                        <div class="card-body">
-                            
-                        </div>
-                    </div> }}
                 </section>
+            </div>
+        </div>
+        <div class="container-fluid fh5co_footer_bg pb-3">
+            <div class="container animate-box">
+                <div class="row">
+                    <div class="col-12 spdp_right py-5"><a href="{{homeurl}}"><img src="{{#logonews}}{{{logonews}}}{{/logonews}}" alt="img" class="footer_logo"/></a></div>
+                    <div class="clearfix"></div>
+                    <div class="col-12 col-md-4 col-lg-3">
+                        <div class="footer_main_title py-3"> Giới thiệu</div>
+                        <div class="footer_sub_about pb-3"> Lorem Ipsum is simply dummy text of the printing and typesetting
+                            industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                            unknown printer took a galley of type and scrambled it to make a type specimen book.
+                        </div>
+                        
+                    </div>
+                    <div class="col-12 col-md-3 col-lg-3">
+                        <div class="footer_main_title py-3"> Tài nguyên</div>
+                        <ul class="footer_menu">
+                            {{#coursecategories}}
+                            <li><a href="{{url}}" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp; {{name}}</a></li>
+                            {{/coursecategories}}
+                        </ul>
+                    </div>
+                    <div class="col-12 col-md-5 col-lg-3 position_footer_relative">
+                        <div class="footer_main_title py-3"> Xem nhiều nhất </div>
+                        {{#mostviewsnews}}
+                        <div class="footer_makes_sub_font"> {{timecreated}}</div>
+                        <a href="{{newsurl}}" class="footer_post pb-4 footer_post_portal"> {{subject}} </a>
+                        {{/mostviewsnews}}
+                        <div class="footer_position_absolute"><img src="/theme/moove/images/footer_sub_tipik.png" alt="img" class="width_footer_sub_img"/></div>
+                    </div>
+                    <div class="col-12 col-md-12 col-lg-3 ">
+                        <div class="footer_main_title py-3"> Theo dõi</div>
+                        <div class="footer_mediya_icon">
+                            <div class="text-center d-inline-block"><a class="fh5co_display_table_footer">
+                                <div class="fh5co_verticle_middle"><i class="fa fa-linkedin"></i></div>
+                            </a></div>
+                            <div class="text-center d-inline-block"><a class="fh5co_display_table_footer">
+                                <div class="fh5co_verticle_middle"><i class="fa fa-google-plus"></i></div>
+                            </a></div>
+                            <div class="text-center d-inline-block"><a class="fh5co_display_table_footer">
+                                <div class="fh5co_verticle_middle"><i class="fa fa-twitter"></i></div>
+                            </a></div>
+                            <div class="text-center d-inline-block"><a class="fh5co_display_table_footer">
+                                <div class="fh5co_verticle_middle"><i class="fa fa-facebook"></i></div>
+                            </a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid fh5co_footer_right_reserved">
+            <div class="container">
+                <div class="row ">
+                    <div class="col-12 col-md-6 py-4 Reserved"> © Copyright 2021, All rights reserved. Design by Vũ. </div>
+                </div>
             </div>
         </div>
         
     </div>
-
-
-
     {{>theme_moove/inc_end}}
