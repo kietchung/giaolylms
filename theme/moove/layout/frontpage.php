@@ -51,7 +51,7 @@ if (isloggedin()) {
     $alertmsg = theme_moove_get_setting('alertmsg');
     $alertcontent = (empty($alertmsg)) ? false : format_text($alertmsg, FORMAT_HTML, ['noclean' => true]);
 
-    $bodyattributes = $OUTPUT->body_attributes($extraclasses);
+    $bodyattributes = $OUTPUT->body_attributes();
     $regionmainsettingsmenu = $OUTPUT->region_main_settings_menu();
     $templatecontext = [
         'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
@@ -60,7 +60,7 @@ if (isloggedin()) {
         'hasblocks' => $hasblocks,
         'bodyattributes' => $bodyattributes,
         'hasdrawertoggle' => true,
-        'navdraweropen' => $navdraweropen,
+        'navdraweropen' => false,
         'draweropenright' => $draweropenright,
         'regionmainsettingsmenu' => $regionmainsettingsmenu,
         'hasregionmainsettingsmenu' => !empty($regionmainsettingsmenu),
