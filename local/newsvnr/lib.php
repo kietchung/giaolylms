@@ -122,7 +122,7 @@ function get_froums_coursenews_data_id($discussionid)
         $modcontext = context_module::instance($context_module->context_id);
         $forumstd->time = $time;
         $forumstd->title = $value->subject;
-        $forumstd->useravatar = $OUTPUT->user_picture($datauser, array('size' => 80));
+        $forumstd->useravatar = $OUTPUT->user_picture($datauser, array('size' => 80, 'link' => false));
         $forumstd->discussionid = $value->discussionid;
         $userlink = $CFG->wwwroot."/user/profile.php?id=".$value->userid;
         $forumstd->content2 = file_rewrite_pluginfile_urls($value->message, 'pluginfile.php', $modcontext->id, 'mod_forum', 'post', $value->postid);
@@ -3248,6 +3248,20 @@ function get_forums_mostviews_data() {
         if ($i === 1) {
             $templatecontext['mostviewsnews'][$j]['active'] = true;
         }
+    }
+    return $templatecontext;
+}
+function get_course_categories() {
+    global $DB, $CFG;
+    $sql = "SELECT * FROM {course_categories} WHERE parent = 0 ORDER BY timemodified DESC LIMIT 7";
+    $data = $DB->get_records_sql($sql);
+    $arr = array();
+    foreach ($data as $key => $value) {        
+        $arr[] = (array)$value;
+    }
+    for ($i = 1, $j = 0; $i <= count($data); $i++, $j++) {
+        $templatecontext['coursecategories'][$j]['name'] = $arr[$j]['name'];
+        $templatecontext['coursecategories'][$j]['url'] = $CFG->wwwroot . '/course/index.php?categoryid=' . $arr[$j]['id'];
     }
     return $templatecontext;
 }

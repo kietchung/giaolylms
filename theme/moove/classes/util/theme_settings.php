@@ -294,14 +294,53 @@ class theme_settings {
         return $templatecontext;
     }
     public function get_btn_add_news() {
-        global $OUTPUT,$USER, $DB;
+        global $CFG, $DB;
         if(has_capability('moodle/site:configview', context_system::instance())) { 
-            $forumid = $DB->get_field_sql("SELECT id FROM mdl_forum WHERE course = :courseid", ['courseid' => 1]);
-            $buttonadd = get_string('addanewdiscussion', 'forum');
-            $button = new single_button(new moodle_url('/mod/forum/post.php', ['forum' => $forumid]), $buttonadd, 'get');
-            $button->class = 'singlebutton forumaddnew';
-            $button->formid = 'newdiscussionform';
-            $renderbtn = $OUTPUT->render($button);
+            $forumid = $DB->get_field_sql("SELECT id FROM mdl_forum WHERE course = :courseid LIMIT 1", ['courseid' => 1]);
+            if($_SESSION['USER']->editing == 1) {
+                $editing = '<form method="get" action="/course/view.php" id="newdiscussionform" class="col-12 col-md-auto">
+                                <input type="hidden" name="id" value="1">
+                                <input type="hidden" name="sesskey" value="'.sesskey().'">
+                                <input type="hidden" name="edit" value="off">
+                                <button type="submit" class="btn btn-primary" title=""><i class="icon fa slicon-pencil fa-fw "></i>Tắt chỉnh sửa trang chủ</button>
+                            </form>';
+                $editing .= '<div class="col-12 col-md-auto"><button class="btn btn-primary" href="/?bui_addblock&amp;sesskey='.sesskey().'" data-key="addblock" data-isexpandable="0" data-indent="0" data-showdivider="1" data-type="60" data-nodetype="0" data-collapse="0" data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" id="yui_3_17_2_1_1627703431544_208">
+                                <div class="ml-0">
+                                    <div class="media">
+                                            <span class="media-left">
+                                                <i class="icon fa fa-plus-square fa-fw mt-1" aria-hidden="true"></i>
+                                            </span>
+                                        <span class="media-body">Thêm khối</span>
+                                    </div>
+                                </div>
+                            </button></div>';
+            } else {
+                $editing = '<form method="get" action="/course/view.php" id="newdiscussionform" class="col-12 col-md-auto">
+                                <input type="hidden" name="id" value="1">
+                                <input type="hidden" name="sesskey" value="'.sesskey().'">
+                                <input type="hidden" name="edit" value="on">
+                                <button type="submit" class="btn btn-primary" title=""><i class="icon fa slicon-pencil fa-fw "></i>Bật chỉnh sửa trang chủ</button>
+                            </form>';
+            }
+            $renderbtn = '  <div class="row">';
+            $renderbtn .= '<form method="get" action="/mod/forum/view.php" id="newdiscussionform" target="_blank" class="col-12 col-md-auto">
+                            <input type="hidden" name="id" value="'.$forumid.'">
+                            <button type="submit" class="btn btn-primary" title="">Thêm tin tức mới</button>
+                        </form>
+                        <form method="get" action="/admin/search.php" id="newdiscussionform" target="_blank" class="col-12 col-md-auto">
+                            <button type="submit" class="btn btn-primary" title=""><i class="icon fa slicon-settings fa-fw"></i>Quản trị</button>
+                        </form>';
+            $renderbtn .= $editing;
+                                
+                                
+            $renderbtn .= '</div>';
+                        
+
+            // $buttonadd = get_string('addanewdiscussion', 'forum');
+            // $button = new single_button(new moodle_url('/mod/forum/view.php', ['id' => $forumid]), $buttonadd, 'get', trues);
+            // $button->class = 'singlebutton forumaddnew';
+            // $button->formid = 'newdiscussionform';
+            // $renderbtn = $OUTPUT->render($button);
             $templatecontext['btnaddnews'] = $renderbtn;
              return $templatecontext;
         } else {   $templatecontext['btnaddnews'] = '';
@@ -320,18 +359,18 @@ class theme_settings {
         $context = context_module::instance($cm->id);
         $sql_gettrending = "SELECT objectid 
                             FROM mdl_logstore_standard_log 
-                            WHERE contextid = :contextid 
+                            WHERE contextid = :contextid1 
                                 AND action = 'viewed' 
                                 AND (timecreated BETWEEN (
                                                         SELECT (timecreated-86400) timecreated 
                                                         FROM mdl_logstore_standard_log 
-                                                        WHERE `contextid` = 38 AND ACTION = 'viewed' ORDER BY timecreated DESC LIMIT 1) 
+                                                        WHERE contextid = :contextid2 AND ACTION = 'viewed' ORDER BY timecreated DESC LIMIT 1) 
                                                         AND 
                                                         timecreated)
                             GROUP by objectid
                             ORDER BY timecreated DESC LIMIT 8
         ";
-        $exc_gettrending = $DB->get_records_sql($sql_gettrending, ['contextid' => $context->id]);
+        $exc_gettrending = $DB->get_records_sql($sql_gettrending, ['contextid1' => $context->id, 'contextid2' => $context->id]);
         $discussionids = [];
         foreach($exc_gettrending as $discussion) {
             $discussionids[] = $discussion->objectid; 
@@ -342,7 +381,7 @@ class theme_settings {
                     LEFT JOIN  {forum_discussions} as d on f.id  = d.forum 
                     INNER JOIN {forum_posts} as p on d.id = p.discussion
                 WHERE f.type = ? AND d.id IN ($strdiscussionids)
-                ";  
+                "; 
         $data = $DB->get_records_sql($sql,array('news'));
         $templatecontext['sliderenabled'] = "1";
         foreach ($data as $key => $value) {        

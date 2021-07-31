@@ -80,14 +80,11 @@
             <div class="col-12 col-md-3 col-lg-3">
                 <div class="footer_main_title py-3"> Tài nguyên</div>
                 <ul class="footer_menu">
-                    <li><a href="#" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp; Business</a></li>
-                    <li><a href="#" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp; Entertainment</a></li>
-                    <li><a href="#" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp; Environment</a></li>
-                    <li><a href="#" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp; Health</a></li>
-                    <li><a href="#" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp; Life style</a></li>
-                    <li><a href="#" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp; Politics</a></li>
-                    <li><a href="#" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp; Technology</a></li>
-                    <li><a href="#" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp; World</a></li>
+                    {{#hascoursecategories}}
+                    {{#coursecategories}}
+                        <li><a href="{{url}}" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp; {{name}}</a></li>
+                    {{/coursecategories}}
+                    {{/hascoursecategories}}
                 </ul>
             </div>
             <div class="col-12 col-md-5 col-lg-3 position_footer_relative">
@@ -104,16 +101,10 @@
                 <div class="footer_main_title py-3"> Theo dõi</div>
                 <div class="footer_mediya_icon">
                     <div class="text-center d-inline-block"><a class="fh5co_display_table_footer">
-                        <div class="fh5co_verticle_middle"><i class="fa fa-linkedin"></i></div>
-                    </a></div>
-                    <div class="text-center d-inline-block"><a class="fh5co_display_table_footer">
-                        <div class="fh5co_verticle_middle"><i class="fa fa-google-plus"></i></div>
-                    </a></div>
-                    <div class="text-center d-inline-block"><a class="fh5co_display_table_footer">
-                        <div class="fh5co_verticle_middle"><i class="fa fa-twitter"></i></div>
-                    </a></div>
-                    <div class="text-center d-inline-block"><a class="fh5co_display_table_footer">
                         <div class="fh5co_verticle_middle"><i class="fa fa-facebook"></i></div>
+                    </a></div>
+                    <div class="text-center d-inline-block"><a class="fh5co_display_table_footer">
+                        <div class="fh5co_verticle_middle"><i class="fa fa-youtube"></i></div>
                     </a></div>
                 </div>
             </div>
