@@ -72,7 +72,7 @@ if (isloggedin()) {
 
     $templatecontext['flatnavigation'] = $PAGE->flatnav;
 
-    $templatecontext = array_merge($templatecontext, $themesettings->get_course_category(), $themesettings->get_btn_add_news(),$themesettings->get_forums_mostviews_data(), $themesettings->get_logo_news(),$themesettings->get_forums_trending_data(), $themesettings->get_forums_newestnews_data(), $themesettings->footer_items(), $themesettings->slideshow(), $themesettings->get_forums_header_data());
+    $templatecontext = array_merge($templatecontext, $themesettings->btn_loggin(), $themesettings->get_course_category(), $themesettings->get_btn_add_news(),$themesettings->get_forums_mostviews_data(), $themesettings->get_logo_news(),$themesettings->get_forums_trending_data(), $themesettings->get_forums_newestnews_data(), $themesettings->footer_items(), $themesettings->slideshow(), $themesettings->get_forums_header_data());
 
     echo $OUTPUT->render_from_template('theme_moove/frontpage', $templatecontext);
 } else {

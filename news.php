@@ -51,6 +51,7 @@ $data['logonews'] = get_logo_news();
 $data['hasnewestnews'] = get_forums_newestnews_data();
 $data['hasmostviewsnews'] = get_forums_mostviews_data();
 $data['hascoursecategories'] = get_course_categories();
+$data['hasbtnlogin'] = btn_loggin();
 $data['homeurl'] = $CFG->wwwroot;
 $forum = $DB->get_record('forum', array('id' => $discussion->forum), '*', MUST_EXIST);
 list($course, $cm) = get_course_and_cm_from_instance($forum, 'forum');

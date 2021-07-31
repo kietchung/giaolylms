@@ -1,6 +1,7 @@
 <div class="container-fluid">
     <div class="container">
         <div class="row">
+            
             <div class="col-12 col-md-3 fh5co_padding_menu">
                 <img src="{{#logonews}}{{logonews}}{{/logonews}}" alt="img" class="fh5co_logo_width"/>
             </div>
@@ -18,6 +19,11 @@
                         <option> English </option>
                     </select>
                 </div>
+                {{#btnlogin}}
+                <div class="d-inline-block text-center dd_position_relative ">
+                    {{{btnlogin}}}
+                </div>
+                {{/btnlogin}}
                 <div class="clearfix"></div>
             </div>
         </div>

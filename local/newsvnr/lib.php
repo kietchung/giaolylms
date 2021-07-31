@@ -3265,3 +3265,15 @@ function get_course_categories() {
     }
     return $templatecontext;
 }
+function btn_loggin() {
+    global $USER;
+    $context = context_course::instance(1);
+    $output = '';
+    if(is_guest($context, $USER)) {
+        $output .= '<a href="/login/index.php"><button type="button" class="btn btn-primary fh5co_text_select_option ml-5 btn-login-logout"><i class="fa fa-sign-in mr-1" aria-hidden="true"></i>Đăng nhập</button></a>';
+    } else if(is_siteadmin()) {
+        $output .= '<a href="/login/logout.php?sesskey='.sesskey().'"><button type="button" class="btn btn-primary fh5co_text_select_option ml-5 btn-login-logout"><i class="fa fa-sign-out mr-1" aria-hidden="true"></i>Đăng xuất</button></a>';
+    }
+    $templatecontext['btnlogin'] = $output;
+    return $templatecontext;
+}

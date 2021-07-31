@@ -36,6 +36,7 @@ use core_course_list_element;
 use DateTime;
 use context_system;
 use context_module;
+use context_user;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -297,7 +298,7 @@ class theme_settings {
         global $CFG, $DB;
         if(has_capability('moodle/site:configview', context_system::instance())) { 
             $forumid = $DB->get_field_sql("SELECT id FROM mdl_forum WHERE course = :courseid LIMIT 1", ['courseid' => 1]);
-            if($_SESSION['USER']->editing == 1) {
+            if(isset($_SESSION['USER']->editing) &&  $_SESSION['USER']->editing == 1) {
                 $editing = '<form method="get" action="/course/view.php" id="newdiscussionform" class="col-12 col-md-auto">
                                 <input type="hidden" name="id" value="1">
                                 <input type="hidden" name="sesskey" value="'.sesskey().'">
@@ -566,6 +567,19 @@ class theme_settings {
     public function get_logo_news() {
         $theme = theme_config::load('moove');
         $templatecontext['logonews'] = $theme->setting_file_url('logo', 'logo');
+        return $templatecontext;
+    }
+
+    public function btn_loggin() {
+        global $USER;
+        $context = context_course::instance(1);
+        $output = '';
+        if(is_guest($context, $USER)) {
+            $output .= '<a href="/login/index.php"><button type="button" class="btn btn-primary fh5co_text_select_option ml-5 btn-login-logout"><i class="fa fa-sign-in mr-1" aria-hidden="true"></i>Đăng nhập</button></a>';
+        } else if(is_siteadmin()) {
+            $output .= '<a href="/login/logout.php?sesskey='.sesskey().'"><button type="button" class="btn btn-primary fh5co_text_select_option ml-5 btn-login-logout"><i class="fa fa-sign-out mr-1" aria-hidden="true"></i>Đăng xuất</button></a>';
+        }
+        $templatecontext['btnlogin'] = $output;
         return $templatecontext;
     }
 

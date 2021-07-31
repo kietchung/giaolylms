@@ -51,7 +51,7 @@ if ($draweropenright && $hasblocks) {
     $extraclasses[] = 'drawer-open-right';
 }
 
-$bodyattributes = $OUTPUT->body_attributes($extraclasses);
+$bodyattributes = $OUTPUT->body_attributes();
 $regionmainsettingsmenu = $OUTPUT->region_main_settings_menu();
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
@@ -60,7 +60,7 @@ $templatecontext = [
     'hasblocks' => $hasblocks,
     'bodyattributes' => $bodyattributes,
     'hasdrawertoggle' => $hasdrawertoggle,
-    'navdraweropen' => $navdraweropen,
+    'navdraweropen' => false,
     'draweropenright' => $draweropenright,
     'regionmainsettingsmenu' => $regionmainsettingsmenu,
     'hasregionmainsettingsmenu' => !empty($regionmainsettingsmenu)
@@ -73,6 +73,6 @@ $templatecontext['flatnavigation'] = $PAGE->flatnav;
 
 $themesettings = new \theme_moove\util\theme_settings();
 
-$templatecontext = array_merge($templatecontext, $themesettings->footer_items());
+$templatecontext = array_merge($templatecontext, $themesettings->footer_items(), $themesettings->btn_loggin());
 
 echo $OUTPUT->render_from_template('theme_moove/columns2', $templatecontext);
