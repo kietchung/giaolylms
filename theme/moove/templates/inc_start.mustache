@@ -235,10 +235,56 @@
         top: -15px;
         border-radius: 5px;
     }
-    
+    #top-footer {
+        background-image: unset;
+        padding: 0;
+    }
+    #page-newsall .card-body {
+        padding: 0px;
+    }
+
+    #page-newsall #top-footer {
+        display: none;
+    }
+    #page-newsall #page-header {
+        display: none;
+    }
+    #page-newsall .fixed-top {
+        display: none;
+    }
+    #page-newsall #page {
+        padding: 0px;
+        margin-top: 0px !important;
+    }
+    #page-newsall #page-content {
+        padding-bottom: 0px!important;
+    }
+    #page-newsall #region-main {
+        border: 0!important;
+    }
+    #page-newsall .card {
+        border: 0!important;
+    }
+    #page-newsall #page-content {
+        margin: 0!important;
+    }
+    #page-newsall #region-main-box {
+        padding: 0!important;
+    }
+    .form-control:focus {
+        box-shadow: unset;
+    }
+    .btn-search-newsall {
+        height: 50px;
+        border-bottom-left-radius: 8px;
+        border-top-left-radius: 8px;
+    }
 
 </style>
 <body {{{ bodyattributes }}}>
+<div class="gototop js-top">
+    <a href="#" class="js-gotop"><i class="fa fa-arrow-up"></i></a>
+</div>
 {{> core/local/toast/wrapper}}
 
 {{>theme_moove/header}}

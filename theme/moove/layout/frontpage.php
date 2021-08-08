@@ -38,7 +38,7 @@ if (isloggedin()) {
     $hasblocks = strpos($blockshtml, 'data-block=') !== false;
 
     $navdraweropen = (get_user_preferences('drawer-open-nav', 'true') == 'true');
-    $draweropenright = (get_user_preferences('sidepre-open', 'true') == 'true');
+    $draweropenright = 'true';
 
     if ($navdraweropen) {
         $extraclasses[] = 'drawer-open-left';
@@ -51,7 +51,7 @@ if (isloggedin()) {
     $alertmsg = theme_moove_get_setting('alertmsg');
     $alertcontent = (empty($alertmsg)) ? false : format_text($alertmsg, FORMAT_HTML, ['noclean' => true]);
 
-    $bodyattributes = $OUTPUT->body_attributes();
+    $bodyattributes = $OUTPUT->body_attributes($extraclasses);
     $regionmainsettingsmenu = $OUTPUT->region_main_settings_menu();
     $templatecontext = [
         'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
