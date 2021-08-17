@@ -598,8 +598,7 @@ class theme_settings {
             $templatecontext['videoshot'][$j][$key] = true;
             $templatecontext['videoshot'][$j]['active'] = false;
             $templatecontext['videoshot'][$j]['name'] = $arr[$j]['name'];
-            // $templatecontext['videoshot'][$j]['externalurl'] = $arr[$j]['externalurl'];
-            $templatecontext['videoshot'][$j]['externalurl'] = 'https://www.youtube.com/embed/E-nIAJ2GC34';
+            $templatecontext['videoshot'][$j]['externalurl'] = $arr[$j]['externalurl'];
             $templatecontext['videoshot'][$j]['timecreated'] = convertunixtime('l, d m Y',$arr[$j]['timemodified'],'Asia/Ho_Chi_Minh');
             if ($i === 1) {
                 $templatecontext['videoshot'][$j]['active'] = true;
