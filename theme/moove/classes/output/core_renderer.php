@@ -869,5 +869,13 @@ class core_renderer extends \theme_boost\output\core_renderer {
         return $output;
     }
 
+    public function check_is_sited_admin() {
+        if(is_siteadmin()) {
+            $output = 'isadmin';
+        } else {
+            $output = 'isnotadmin';
+        }
+        return $output;
+    }
     
 }

@@ -2682,7 +2682,7 @@ function xmldb_main_upgrade($oldversion) {
         upgrade_main_savepoint(true, 2021051700.05);
     }
 
-    if ($oldversion < 2021051701.4) {
+    if ($oldversion < 2021051701.04) {
         // Define field evaluationmode to be added to analytics_models_log.
         $table = new xmldb_table('forum_discussions');
         $field = new xmldb_field('countviews', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, 0);
@@ -2694,6 +2694,29 @@ function xmldb_main_upgrade($oldversion) {
 
         // Main savepoint reached.
         upgrade_main_savepoint(true, 2021051701.04);
+    }
+    if ($oldversion < 2021051802.03) {
+        // Define table payment_gateways to be created.
+        $table = new xmldb_table('video_pinned');
+
+        // Adding fields to table payment_gateways.
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $table->add_field('name', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('cmid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('externalurl', XMLDB_TYPE_TEXT, null, null, null, null);
+        $table->add_field('pinned', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, 0);
+        $table->add_field('timecreated', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('timemodified', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+
+        // Adding keys to table payment_gateways.
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
+
+        // Conditionally launch create table for payment_gateways.
+        if (!$dbman->table_exists($table)) {
+            $dbman->create_table($table);
+        }
+        // Main savepoint reached.
+        upgrade_main_savepoint(true, 2021051802.03);
     }
 
     return true;

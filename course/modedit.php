@@ -112,6 +112,12 @@ if (!empty($add)) {
     $data->sr = $sectionreturn;
     $data->update = $update;
 
+    if($COURSE->id == SITEID && $cm->modname == 'url') {
+        $videos = $DB->get_record('video_pinned', ['cmid' => $cm->id]);
+        $data->externalurl = $videos->externalurl;
+        $data->pinned = $videos->pinned;
+    }
+
     $sectionname = get_section_name($course, $cw);
     $fullmodulename = get_string('modulename', $module->name);
 
@@ -164,8 +170,25 @@ if ($mform->is_cancelled()) {
 } else if ($fromform = $mform->get_data()) {
     if (!empty($fromform->update)) {
         list($cm, $fromform) = update_moduleinfo($cm, $fromform, $course, $mform);
+        if($COURSE->id == SITEID && $fromform->modulename == 'url') {
+            $videos->name = $fromform->name;
+            $videos->externalurl = $fromform->externalurl;
+            $videos->pinned = $fromform->pinned;
+            $videos->timemodified = time();
+            $DB->update_record('video_pinned', $videos);
+        }
     } else if (!empty($fromform->add)) {
         $fromform = add_moduleinfo($fromform, $course, $mform);
+        if($COURSE->id == SITEID && $fromform->modulename == 'url') {
+            $videos = new stdClass;
+            $videos->name = $fromform->name;
+            $videos->cmid = $fromform->coursemodule;
+            $videos->externalurl = $fromform->externalurl;
+            $videos->pinned = $fromform->pinned;
+            $videos->timecreated = time();
+            $videos->timemodified = time();
+            $DB->insert_record('video_pinned', $videos);
+        }
     } else {
         print_error('invaliddata');
     }

@@ -129,6 +129,10 @@ if (!empty($add)) {
     // Delete the module.
     course_delete_module($cm->id);
 
+    if($COURSE->id == SITEID && $cm->modname == 'url') {
+        $DB->delete_records('video_pinned', ['cmid' => $cm->id]);
+    }
+
     redirect($return);
 }
 

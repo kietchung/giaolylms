@@ -49,6 +49,9 @@ require([], function() {
         iconsearch.onclick = togglesearchinputform;
         btnclosesearch.onclick = togglesearchinputform;
     }
+    if($('[data-role=isadmin]').length == 0) {
+        $('.sitetopic').addClass('d-none');
+    }
 });
 
 require(['theme_moove/accessibilitybar'], function(bar) {

@@ -583,4 +583,29 @@ class theme_settings {
         return $templatecontext;
     }
 
+    public function get_videos_hot_data() {
+        global $OUTPUT,$DB,$CFG,$USER;
+        require_once($CFG->dirroot.'/local/newsvnr/lib.php');
+        
+        $sql = "SELECT * FROM {video_pinned} WHERE pinned = 1 ORDER BY timemodified DESC LIMIT 8"; 
+        $data = $DB->get_records_sql($sql,[]);
+        $templatecontext['sliderenabled'] = "1";
+        foreach ($data as $key => $value) {        
+            $arr[] = (array)$value;
+        }
+        for ($i = 1, $j = 0; $i <= count($data); $i++, $j++) {
+            $key = 'key' . $i;
+            $templatecontext['videoshot'][$j][$key] = true;
+            $templatecontext['videoshot'][$j]['active'] = false;
+            $templatecontext['videoshot'][$j]['name'] = $arr[$j]['name'];
+            // $templatecontext['videoshot'][$j]['externalurl'] = $arr[$j]['externalurl'];
+            $templatecontext['videoshot'][$j]['externalurl'] = 'https://www.youtube.com/embed/E-nIAJ2GC34';
+            $templatecontext['videoshot'][$j]['timecreated'] = convertunixtime('l, d m Y',$arr[$j]['timemodified'],'Asia/Ho_Chi_Minh');
+            if ($i === 1) {
+                $templatecontext['videoshot'][$j]['active'] = true;
+            }
+        }
+        return $templatecontext;
+    }
+
 }
