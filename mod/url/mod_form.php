@@ -30,7 +30,7 @@ require_once($CFG->dirroot.'/mod/url/locallib.php');
 
 class mod_url_mod_form extends moodleform_mod {
     function definition() {
-        global $CFG, $DB;
+        global $CFG, $DB, $COURSE;
         $mform = $this->_form;
 
         $config = get_config('url');
@@ -48,6 +48,11 @@ class mod_url_mod_form extends moodleform_mod {
         $mform->addElement('url', 'externalurl', get_string('externalurl', 'url'), array('size'=>'60'), array('usefilepicker'=>true));
         $mform->setType('externalurl', PARAM_RAW_TRIMMED);
         $mform->addRule('externalurl', null, 'required', null, 'client');
+
+        if($COURSE->id == SITEID) {
+            $mform->addElement('advcheckbox', 'pinned', 'Ghim làm video nổi bật');
+        }
+        
         $this->standard_intro_elements();
         $element = $mform->getElement('introeditor');
         $attributes = $element->getAttributes();
