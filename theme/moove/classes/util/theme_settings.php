@@ -247,7 +247,7 @@ class theme_settings {
                 FROM {forum} as f
                     LEFT JOIN  {forum_discussions} as d on f.id  = d.forum 
                     INNER JOIN {forum_posts} as p on d.id = p.discussion
-                WHERE f.type = ? AND d.pinned= ? LIMIT 5
+                WHERE f.type = ? AND d.pinned= ? ORDER BY d.timemodified DESC LIMIT 5
                 ";  
         $data = $DB->get_records_sql($sql,array('news',1));
         $templatecontext['sliderenabled'] = "1";
