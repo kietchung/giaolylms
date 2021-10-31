@@ -71,7 +71,7 @@ class block_course_list extends block_list {
                 $this->title = get_string('mycourses');
             /// If we can update any course of the view all isn't hidden, show the view all courses link
                 if ($allcourselink) {
-                    $this->content->footer = "<a href=\"$CFG->wwwroot/course/index.php\">".get_string("fulllistofcourses")."</a> ...";
+                    $this->content->footer = "<a href=\"$CFG->wwwroot/course/index.php\">".get_string("fulllistofcourses")."</a> ..." . "</br><a href=\"http://qlgd.giaoxutaman.com\">qlgd.giaoxutaman.com</a>";
                 }
             }
             $this->get_remote_courses();
@@ -91,7 +91,7 @@ class block_course_list extends block_list {
                 }
             /// If we can update any course of the view all isn't hidden, show the view all courses link
                 if ($allcourselink) {
-                    $this->content->footer .= "<a href=\"$CFG->wwwroot/course/index.php\">".get_string('fulllistofcourses').'</a> ...';
+                    $this->content->footer .= "<a href=\"$CFG->wwwroot/course/index.php\">".get_string('fulllistofcourses').'</a> ...' . "</br><a href=\"http://qlgd.giaoxutaman.com\">qlgd.giaoxutaman.com</a>";
                 }
                 $this->title = get_string('categories');
             } else {                          // Just print course names of single category
@@ -110,7 +110,7 @@ class block_course_list extends block_list {
                     }
                 /// If we can update any course of the view all isn't hidden, show the view all courses link
                     if ($allcourselink) {
-                        $this->content->footer .= "<a href=\"$CFG->wwwroot/course/index.php\">".get_string('fulllistofcourses').'</a> ...';
+                        $this->content->footer .= "<a href=\"$CFG->wwwroot/course/index.php\">".get_string('fulllistofcourses').'</a> ...'. "</br><a href=\"http://qlgd.giaoxutaman.com\">qlgd.giaoxutaman.com</a>";
                     }
                     $this->get_remote_courses();
                 } else {
